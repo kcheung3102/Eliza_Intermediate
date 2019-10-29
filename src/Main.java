@@ -1,4 +1,7 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -9,25 +12,42 @@ public class Main {
 
     public void run() {
         Scanner keyboard = new Scanner(System.in);
-        ArrayList<String> chatBot = new ArrayList<>();
         String toAdd = "";
+        ArrayList<String> chatBot = new ArrayList<String>();
+        chatBot.add("Please tell me more");
+        chatBot.add("Why do you say that ");
+        chatBot.add("You seem to think that");
+        Random rand = new Random();
+        System.out.print("Good Day Whats your problem? ");
 
 
         while(!toAdd.equalsIgnoreCase("q")) {
             System.out.println("Enter Response or Q to quit");
             toAdd = keyboard.nextLine().toLowerCase();
-            String replaceMessage = messageReplacement(toAdd);
-            System.out.println(replaceMessage);
+            if(toAdd.contains("my") || toAdd.contains("me")) {
+                String replaceMessage = wordReplacement(toAdd);
+                System.out.println(chatBot.get(1) + replaceMessage);
+
+            } else if(toAdd.contains("i ")) {
+                String replaceMessage = wordReplacement(toAdd);
+                System.out.println(chatBot.get(2) + " " + replaceMessage);
+            }
+            else {
+                System.out.println(chatBot.get(0));
+            }
+
+
+
         }
         System.out.println("END >>>>>>>>");
     }
 
-    public String messageReplacement(String str) {
+    public String wordReplacement(String str) {
         String s = str;
-        s = s.replace("i","you");
-        s = s.replace("me", "you");
-        s = s.replace("my", "your");
-        s = s.replace("am", "are");
+        s = s.replace("i ","you ");
+        s = s.replace("me ", "you");
+        s = s.replace("my ", "your ");
+        s = s.replace("am ", "are");
         return s;
     }
 }
